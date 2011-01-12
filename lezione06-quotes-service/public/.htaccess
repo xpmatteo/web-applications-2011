@@ -1,0 +1,6 @@
+AddHandler cgi-script .cgi
+Options +FollowSymLinks +ExecCGI +Indexes -Multiviews
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ dispatch.cgi [QSA,L]

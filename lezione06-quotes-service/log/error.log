@@ -1,0 +1,9 @@
+[Tue Jan 11 22:53:41 2011] [error] [client 127.0.0.1] (8)Exec format error: exec of '/Users/matteo/work/applicazioni-web/esercizi2010/my-blog/public/dispatch.cgi' failed
+[Tue Jan 11 22:53:41 2011] [error] [client 127.0.0.1] Premature end of script headers: dispatch.cgi
+[Tue Jan 11 22:53:41 2011] [error] [client 127.0.0.1] (8)Exec format error: exec of '/Users/matteo/work/applicazioni-web/esercizi2010/my-blog/public/dispatch.cgi' failed
+[Tue Jan 11 22:53:41 2011] [error] [client 127.0.0.1] Premature end of script headers: dispatch.cgi
+[Tue Jan 11 22:53:44 2011] [error] [client 127.0.0.1] (8)Exec format error: exec of '/Users/matteo/work/applicazioni-web/esercizi2010/my-blog/public/dispatch.cgi' failed
+[Tue Jan 11 22:53:44 2011] [error] [client 127.0.0.1] Premature end of script headers: dispatch.cgi
+[Tue Jan 11 22:54:25 2011] [error] [client 127.0.0.1] /Users/matteo/work/applicazioni-web/esercizi2010/my-blog/public/dispatch.cgi:8: undefined method `Hello' for main:Object (NoMethodError)
+[Tue Jan 11 23:10:46 2011] [error] [client 127.0.0.1] Premature end of script headers: dispatch.cgi
+[Tue Jan 11 23:12:05 2011] [error] [client 127.0.0.1] Premature end of script headers: dispatch.cgi
