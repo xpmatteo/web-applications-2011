@@ -1,0 +1,59 @@
+
+== Objectives for this lesson
+
+* Adding information with forms
+* Form handling
+* Validation of user input
+* Shared layout
+* Listing contents
+
+== EXERCISES
+
+* Implement /quotes/edit and /quotes/update
+
+Watch out for permission denied in /quotes/create: remember which user is executing your script.
+
+== PREREQUISITES ==
+
+Any Unix OS.  Linux, BSD, MacOS goes.
+
+Ruby 1.8.7.  (For Ubuntu: apt-get install ruby-full)
+
+Apache Httpd 
+
+== INSTALLATION ==
+
+Add the following content to your Apache configuration. This usually goes in a
+file quotes-service.conf in /etc/apache2/other or /etc/apache2/sites-available.
+Substitute /some-path/quotes-service for the actual path where your app resides.
+
+  <VirtualHost *:80>
+      ServerName quotes
+
+      ErrorLog /some-path/quotes-service/log/error.log    
+      CustomLog /some-path/quotes-service/log/access.log common
+      DocumentRoot /some-path/quotes-service/public
+
+      <Directory /some-path/quotes-service/public>
+        AllowOverride All      
+        Order allow,deny
+        Allow from all
+      </Directory>
+  </VirtualHost>
+
+Add the following content to your /etc/hosts file
+
+  127.0.0.1 quotes
+  
+Note that the name of the service "quotes" must be the same that appears in
+the ServerName directive. Verify that the installation is correct by
+executing
+
+  apachectl -t
+
+Then restart Apache with
+
+  sudo apachectl restart
+  
+Open http://quotes/ in your browser.  You should see the service.
+
