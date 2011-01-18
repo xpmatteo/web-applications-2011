@@ -1,9 +1,25 @@
 
+== Objectives for this lesson
+
+* Adding information with forms
+* Form handling
+* Validation of user input
+* Shared layout
+* Listing contents
+
+== EXERCISES
+
+* Implement /quotes/edit and /quotes/update
+
+Watch out for permission denied in /quotes/create: remember which user is executing your script.
+
 == PREREQUISITES ==
 
 Any Unix OS.  Linux, BSD, MacOS goes.
 
 Ruby 1.8.7.  (For Ubuntu: apt-get install ruby-full)
+
+Apache Httpd 
 
 == INSTALLATION ==
 

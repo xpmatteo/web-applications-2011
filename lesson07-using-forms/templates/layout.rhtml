@@ -6,14 +6,9 @@
   </head>
   <body>
     <div id="content">
-      <h2>Servizio citazioni</h2>
-      <form method='get' action='.'>
-        Cerca: <input type='text' name='q' value='<%= cgi['q'] %>' />
-      </form>
-      <div>
-      <%= quote %>
-      </div>
-      <p><%= author %></p>    
-    </div>
+
+      <%= @content_for_layout %>
+
+    </div>    
   </body>
 </html>

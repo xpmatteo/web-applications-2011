@@ -8,3 +8,7 @@ body {
   width: 40em;
   margin: 0px auto;
 }
+
+.field_with_errors {
+  background: pink;
+}

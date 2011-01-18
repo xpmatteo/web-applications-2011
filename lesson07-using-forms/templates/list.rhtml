@@ -1,0 +1,11 @@
+<h2>Tutte le citazioni</h2>
+
+<table>
+  <% for quote in quotes %>
+    <tr>
+      <td><%= quote[:author] %></td>
+      <td><%= quote[:body][0,10] + "..." %></td>
+      <td><a href="/quotes/edit?quote_id=<%= quote[:quote_id] %>">edit</a></td>
+    </tr>
+  <% end %>
+</table>
