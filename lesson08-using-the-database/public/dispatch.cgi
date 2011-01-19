@@ -4,8 +4,10 @@ SERVICE_ROOT = File.dirname(__FILE__) + "/.."
 
 require 'cgi'
 require 'erb'
+require "#{SERVICE_ROOT}/config/current_configuration"
 require "#{SERVICE_ROOT}/lib/quote"
 require "#{SERVICE_ROOT}/lib/template"
+require "#{SERVICE_ROOT}/lib/database"
 require "#{SERVICE_ROOT}/lib/html_helpers"
 
 params = CGI.new
@@ -15,7 +17,10 @@ case requested_uri
 when "/quotes/list"
   quotes = find_all_quotes
   render "list"
-
+when "/quotes/show"
+  quote = find_quote(params["quote_id"])
+  render "show"
+  
 when "/quotes/edit"
   quote = find_quote(params["quote_id"])
   render "edit"
@@ -29,12 +34,12 @@ when "/quotes/update"
 when "/quotes/new"
   render "new"
 when "/quotes/create"
-  if save_quote params['author'], params['body'], errors
-    redirect "/"
+  if quote_id = save_quote(params, errors)
+    redirect "/quotes/show?quote_id=#{quote_id}"
   else
     render "new"
   end
 else
-  quote, author = select_quote(params['q'])
+  quote = select_quote(params['q'])
   render "index"
 end

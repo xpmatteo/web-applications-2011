@@ -26,3 +26,7 @@ def redirect(location)
   printf "Location: http://#{ENV['HTTP_HOST']}#{location}\r\n"
   render "redirect"  
 end
+
+def protect_in_html(string)
+  string.gsub("'", "&apos;")
+end

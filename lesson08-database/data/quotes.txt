@@ -1,6 +1,0 @@
-Let's call it an accidental feature.
-	-- Larry Wall
-%
-Che bella giornata
-
--- Checco

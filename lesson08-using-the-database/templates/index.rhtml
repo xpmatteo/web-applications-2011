@@ -1,11 +1,11 @@
 <h2>Servizio citazioni</h2>
 <form method='get' action='.'>
-  Cerca: <input type='text' name='q' value='<%= params['q'] %>' />
+  Cerca: <input type='text' name='q' value='<%= protect_in_html(params['q']) %>' />
 </form>
 <div>
-<%= quote %>
+<%= quote["body"] %>
 </div>
-<p><%= author %></p>    
+<p><%= quote["author"] %></p>    
 <p>
   <a href="/quotes/new">Aggiungi nuova</a> | <a href="/quotes/list">Tutte le citazioni</a>
 </p>
