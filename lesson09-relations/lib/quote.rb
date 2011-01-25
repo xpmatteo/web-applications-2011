@@ -1,6 +1,10 @@
 
 def find_all_quotes
-  db_select "select * from quotes order by quote_id"
+  quotes = db_select "select * from quotes order by quote_id limit 100"
+  # N+1 queries!!! bad performance !!! Don't do this
+  for quote in quotes
+    add_comments(quote)
+  end
 end
 
 def find_quote(quote_id)
@@ -18,7 +22,7 @@ def find_random_quote(search_param)
   add_comments(quotes.first || default_quote)
 end
 
-def save_quote(quote, errors)
+def save_quote(quote, errors={})
   errors['author'] = "Sforziamoci di mettere un autore, ok?" if missing(quote["author"])
   errors['body'] = "Un testo per cortesia" if missing(quote["body"])
   return false unless errors.empty?
@@ -48,7 +52,7 @@ def default_quote
 end
 
 def protect(string)
-  string.gsub("'", "\\'")
+  string && string.gsub("'", "\\'") 
 end
 
 def missing value

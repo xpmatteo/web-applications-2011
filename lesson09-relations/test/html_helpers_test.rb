@@ -1,6 +1,6 @@
 require "test/unit"
 
-require "html_helpers"
+require File.dirname(__FILE__) + "/../lib/html_helpers"
 
 class HtmlHelpersTest < Test::Unit::TestCase
   def test_input_text_field

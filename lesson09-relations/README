@@ -1,21 +1,15 @@
 
 == Objectives for this lesson
 
-* Learn how to work with the database
-* Learn how to setup the workstation from scratch quickly (script/create_databases)
-* New library for dealing with Mysql (lib/database.rb)
-* Reimplemented data access in quotes.rb with database
-* Learn how to deal with separate configurations for development, test and production (see config/*)
-* Learn how to write automated tests for getting early feedback on the quality of our code
-* Learn how to control dependencies in the architecture of the application.  The dispatch.cgi script is completely decoupled from the database schema.  Only quotes.rb (our persistence layer) and the actual templates *.rhtml need to change when the schema changes.
-
-You will need to install Mysql, rubygems and the mysql gem (gem install mysql).
-
+* Learn how to organize the evolution of the database schema
+* Learn how to use associations (relations) between entities (tables).
+* Learn how to avoid the N+1 queries problem.
 
 
 == EXERCISES
 
-* Implement /quotes/edit and /quotes/update
+* Add validation on comments: no comments with empty body or author
+* Remove the N+1 query problem from function select_all_quotes.  Check that the test in test/quote_test.rb still works. (You can run the test with "ruby test/quote_test.rb")
 
 == PREREQUISITES ==
 
