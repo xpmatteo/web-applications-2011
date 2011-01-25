@@ -6,3 +6,8 @@ create table quotes (
   primary key(quote_id)
 ) engine InnoDB;
 
+create table schema_info (
+  version int not null
+);
+
+insert into schema_info (version) values (0);

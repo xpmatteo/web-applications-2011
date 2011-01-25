@@ -1,20 +1,11 @@
 
-DATA_FILE = "#{SERVICE_ROOT}/data/quotes.txt"
-
 def find_all_quotes
   db_select "select * from quotes order by quote_id"
 end
 
 def find_quote(quote_id)
   quotes = db_select "select * from quotes where quote_id = #{quote_id.to_i}"
-  quotes.first || default_quote
-end
-
-def find_comments(quote_id)
-  [
-    {"body" => "bello", "author" => "Gino", "created_at" => Time.local(2007,2,14,4,55)},
-    {"body" => "fa schifo", "author" => "Topolino", "created_at" => Time.local(2009,2,13,17,5)},
-  ]
+  add_comments(quotes.first || default_quote)
 end
 
 def find_random_quote(search_param)
@@ -24,7 +15,7 @@ def find_random_quote(search_param)
     where = ""
   end
   quotes = db_select "select * from quotes #{where} order by rand() limit 1"  
-  quotes.first || default_quote
+  add_comments(quotes.first || default_quote)
 end
 
 def save_quote(quote, errors)
@@ -40,6 +31,18 @@ def save_quote(quote, errors)
   return db_insert(sql)
 end
 
+def create_comment(params)
+  sql = sprintf "insert into comments (quote_id, body, author, author_url, created_at) 
+    values (%s, '%s', '%s', '%s', now())", 
+    protect(params["quote_id"]),
+    protect(params["body"]),
+    protect(params["author"]),
+    protect(params["author_url"])
+  db_execute sql
+end
+
+private
+
 def default_quote
   { "body" => "Nessuna citazione disponibile" }
 end
@@ -50,5 +53,14 @@ end
 
 def missing value
   value.nil? || value.empty?
+end
+
+def add_comments(quote)
+  quote["comments"] = 
+    db_select("select * 
+               from comments 
+               where quote_id = #{quote["quote_id"]}
+               order by created_at")
+  quote
 end
 

@@ -10,12 +10,28 @@
 <p class="author">&mdash; <%= quote["author"] %></p>
 
 <div class="comments">
-<% for comment in [] %>
+<% for comment in quote["comments"] || [] %>
   <div class="comment">
     <%= comment["body"] %>
-    <p class="author"><%= comment["author"] %> at <%= comment["created_at"].strftime("%H:%M %d/%m/%Y") %></p>
+    <p class="author">
+      <% if comment["author_url"] && !comment["author_url"].empty? %>
+          <a href="<%= comment["author_url"] %>"><%= comment["author"] %></a> 
+          at <%= comment["created_at"] %>
+      <% else %>
+        <%= comment["author"] %> at <%= comment["created_at"] %>
+      <% end %>
+    </p>
   </div>
 <% end %>
+
+<h4>Commenta anche tu!</h4>
+<form action="/quotes/comments/create" method="post" accept-charset="utf-8">
+  <%= input_text_field "Il tuo nome", "author" %>
+  <%= input_text_field "Il tuo blog", "author_url" %>
+  <%= input_hidden_field "quote_id", quote["quote_id"] %>
+  <textarea name="body" rows="8" cols="40"></textarea>
+  <p><input type="submit" value="Continue &rarr;"/></p>
+</form>
 </div>
 
 <p>
