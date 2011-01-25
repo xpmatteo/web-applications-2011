@@ -10,19 +10,12 @@
 <p class="author">&mdash; <%= quote["author"] %></p>
 
 <div class="comments">
-<% for comment in find_comments(quote["quote_id"]) %>
+<% for comment in [] %>
   <div class="comment">
     <%= comment["body"] %>
     <p class="author"><%= comment["author"] %> at <%= comment["created_at"].strftime("%H:%M %d/%m/%Y") %></p>
   </div>
 <% end %>
-<h4>Commenta anche tu!</h4>
-<form action="/quotes/comments/create" method="post" accept-charset="utf-8">  
-  <textarea name="body" rows="8" cols="30"></textarea>
-  <%= input_text_field "Il tuo nome", "author", "", {} %>
-  <%= input_hidden_field "quote_id", quote["quote_id"] %>
-  <%= submit_button "Continua &rarr;" %>
-</form>
 </div>
 
 <p>
