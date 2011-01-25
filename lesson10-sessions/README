@@ -1,0 +1,71 @@
+
+== Objectives for this lesson
+
+* Learn how to organize the evolution of the database schema
+* Learn how to use associations (relations) between entities (tables).
+* Learn how to avoid the N+1 queries problem.
+
+
+== EXERCISES
+
+* Add validation on comments: no comments with empty body or author
+* Remove the N+1 query problem from function select_all_quotes.  Check that the test in test/quote_test.rb still works. (You can run the test with "ruby test/quote_test.rb")
+
+== PREREQUISITES ==
+
+* Any Unix OS.  Linux, BSD, MacOS goes.
+* Ruby 1.8.7.  (For Ubuntu: apt-get install ruby-full)
+* Apache Httpd 
+* Mysql 5
+* Rubygems and the mysql gem
+
+== INSTALLATION ==
+
+=== a) Create databases
+
+execute 
+  script/create_databases.sh
+  
+=== b) Create a symlink to the development database configuration
+
+  cd config
+  ln -s development.rb current_configuration.rb
+
+=== c) Configure Apache
+
+Add the following content to your Apache configuration. This usually goes in a
+file quotes-service.conf in /etc/apache2/other or /etc/apache2/sites-available.
+Substitute /some-path/quotes-service for the actual path where your app resides.
+
+  <VirtualHost *:80>
+      ServerName quotes
+
+      ErrorLog /some-path/quotes-service/log/error.log    
+      CustomLog /some-path/quotes-service/log/access.log common
+      DocumentRoot /some-path/quotes-service/public
+
+      <Directory /some-path/quotes-service/public>
+        AllowOverride All      
+        Order allow,deny
+        Allow from all
+      </Directory>
+  </VirtualHost>
+
+Add the following content to your /etc/hosts file
+
+  127.0.0.1 quotes
+  
+Note that the name of the service "quotes" must be the same that appears in
+the ServerName directive. Verify that the installation is correct by
+executing
+
+  apachectl -t
+
+Then restart Apache with
+
+  sudo apachectl restart
+
+=== d) Test 
+  
+Open http://quotes/ in your browser.  You should see the service.
+
