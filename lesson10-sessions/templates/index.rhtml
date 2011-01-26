@@ -9,6 +9,12 @@
 
 <p class="author">&mdash; <%= quote["author"] %></p>
 
+<% if user_is_logged_in(session) %>
+  <a href="/quotes/edit?quote_id='<%= quote["quote_id"] %>'">Edit this quote</a>
+<% else %>
+  If you were <a href="/users/login">logged in</a>, you could edit this quote.
+<% end %>
+
 <div class="comments">
 <% for comment in quote["comments"] || [] %>
   <div class="comment">

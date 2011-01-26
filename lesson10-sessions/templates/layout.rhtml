@@ -9,6 +9,9 @@
 
       <%= @content_for_layout %>
 
+      <address>
+        Hi! your session id is <%= session.session_id %>, your user id is <%= session.user_id.inspect %> and you clicked <%= visits %> times in this session.
+      </address>      
     </div>    
   </body>
 </html>

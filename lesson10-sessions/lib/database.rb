@@ -17,7 +17,8 @@ def db_select(sql)
 end
 
 def db_select_one_value(sql)
-  db_select(sql).first.values.first
+  row = db_select(sql).first
+  row && row.values.first
 end
 
 def db_execute(sql)
