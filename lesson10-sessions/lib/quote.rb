@@ -48,7 +48,7 @@ end
 private
 
 def default_quote
-  { "body" => "Nessuna citazione disponibile" }
+  { "body" => "Nessuna citazione disponibile", "quote_id" => -1 }
 end
 
 def protect(string)

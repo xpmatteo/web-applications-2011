@@ -6,7 +6,7 @@ def find_all_quotes
 end
 
 def default_quote
-  { "body" => "Nessuna citazione disponibile" }
+  { "body" => "Nessuna citazione disponibile", "quote_id" => -1 }
 end
 
 def protect(string)

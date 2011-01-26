@@ -10,13 +10,14 @@ require "#{SERVICE_ROOT}/lib/template"
 require "#{SERVICE_ROOT}/lib/database"
 require "#{SERVICE_ROOT}/lib/html_helpers"
 
-params = CGI.new
+cgi = CGI.new
+params = cgi
 errors = {}
 
 case requested_uri
 when "/quotes/comments/create"
   create_comment(params)
-  redirect "/quotes/?quote_id=#{params ["quote_id"]}"
+  redirect "/?quote_id=#{params ["quote_id"]}"
 when "/quotes/list"
   quotes = find_all_quotes
   render "list"
@@ -33,15 +34,18 @@ when "/quotes/new"
   render "new"
 when "/quotes/create"
   if quote_id = save_quote(params, errors)
-    redirect "/quotes/?quote_id=#{quote_id}"
+    redirect "/?quote_id=#{quote_id}"
   else
     render "new"
   end
-else
+when "/"
   if params["quote_id"]
     quote = find_quote(params["quote_id"])
   else    
     quote = find_random_quote(params['q'])
   end
   render "index"
+else
+  print "Status: 404 Not Found\r\n"
+  render "404"
 end

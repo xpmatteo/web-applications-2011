@@ -14,8 +14,8 @@ end
 def render(template_name)
   template = load_template(template_name)
   
-  printf "Content-type: text/html\r\n"
-  printf "\r\n"
+  print "Content-type: text/html\r\n"
+  print "\r\n"
 
   @content_for_layout = ERB.new(template).result
   
@@ -23,7 +23,7 @@ def render(template_name)
 end
 
 def redirect(location)
-  printf "Location: http://#{ENV['HTTP_HOST']}#{location}\r\n"
+  print "Location: http://#{ENV['HTTP_HOST']}#{location}\r\n"
   render "redirect"  
 end
 
