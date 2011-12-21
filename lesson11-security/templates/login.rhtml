@@ -1,0 +1,12 @@
+<% unless errors.empty? %>
+<p>
+  Sorry!  Your login name was wrong.  Or your password.  Or both. :-)
+</p>
+<% end %>
+
+<form action="/users/authenticate" method="post" accept-charset="utf-8">
+  <%= input_text_field("La tua login", "login", params["login"]) %>
+  <%= input_password_field("La tua password", "password") %>
+  <%= input_hidden_field("requested_uri", params["requested_uri"]) %>
+  <%= submit_button("Login") %>
+</form>

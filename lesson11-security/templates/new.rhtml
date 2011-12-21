@@ -1,0 +1,23 @@
+<% unless errors.empty? %>
+Abbiamo degli errori:
+<ul>
+  <% for error in errors.values %>
+  <li><%= error %></li>
+  <% end %>  
+</ul>
+<% end %>
+
+<form action="/quotes/create" method="post" accept-charset="utf-8">
+
+  <%= input_text_field "Autore", "author", params['author'], errors %>
+
+  <p>
+    <label for="body">Testo</label>
+    <br/>
+    <textarea 
+      <%= class_for_input_field 'body', errors %>
+      name="body" rows="8" cols="40"><%= params['body'] %></textarea>
+  </p>
+
+  <p><input type="submit" value="Inserisci"/></p>
+</form>

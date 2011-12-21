@@ -1,0 +1,79 @@
+
+== Objectives for this lesson
+
+* Learn how to create and use cookies
+* Learn how to create and use sessions
+
+Check out the code that tracks the number of clicks in this session in dispatch.cgi.
+
+Check out the code that creates the session in session.rb.
+
+== EXERCISES
+
+* Create a users table.  It should contain the login, hashed password, email and any other information you might want about the user.
+* Add a registration page, so that users can create a login for themselves
+* Add a page that allows a logged in user to change their password, email, and any other profile information that you save about them.
+* Add a column to the quotes table to remember which user entered each quote.
+* Create a public page for each user.  This page should show all the public information about him (e.g., not the email!) and contain links to all the quotes they have added.
+
+
+
+
+== PREREQUISITES ==
+
+* Any Unix OS.  Linux, BSD, MacOS goes.
+* Ruby 1.8.7.  (For Ubuntu: apt-get install ruby-full)
+* Apache Httpd 
+* Mysql 5
+* Rubygems and the mysql gem
+
+== INSTALLATION ==
+
+=== a) Create databases
+
+execute 
+  script/create_databases.sh
+  
+=== b) Create a symlink to the development database configuration
+
+  cd config
+  ln -s development.rb current_configuration.rb
+
+=== c) Configure Apache
+
+Add the following content to your Apache configuration. This usually goes in a
+file quotes-service.conf in /etc/apache2/other or /etc/apache2/sites-available.
+Substitute /some-path/quotes-service for the actual path where your app resides.
+
+  <VirtualHost *:80>
+      ServerName quotes
+
+      ErrorLog /some-path/quotes-service/log/error.log    
+      CustomLog /some-path/quotes-service/log/access.log common
+      DocumentRoot /some-path/quotes-service/public
+
+      <Directory /some-path/quotes-service/public>
+        AllowOverride All      
+        Order allow,deny
+        Allow from all
+      </Directory>
+  </VirtualHost>
+
+Add the following content to your /etc/hosts file
+
+  127.0.0.1 quotes
+  
+Note that the name of the service "quotes" must be the same that appears in
+the ServerName directive. Verify that the installation is correct by
+executing
+
+  apachectl -t
+
+Then restart Apache with
+
+  sudo apachectl restart
+
+=== d) Test 
+  
+Open http://quotes/ in your browser.  You should see the service.
+

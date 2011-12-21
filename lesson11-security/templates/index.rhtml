@@ -1,0 +1,45 @@
+<h2>Servizio citazioni</h2>
+<form method='get' action='.'>
+  Cerca: <input type='text' name='q' value='<%= protect_in_html(params['q']) %>' />
+</form>
+
+<div>
+  <%= h(quote["body"]) %>
+</div>
+
+<p class="author">&mdash; <%= quote["author"] %></p>
+
+<% if user_is_logged_in(session) %>
+  <a href="/quotes/edit?quote_id='<%= quote["quote_id"] %>'">Edit this quote</a>
+<% else %>
+  If you were <a href="/users/login">logged in</a>, you could edit this quote.
+<% end %>
+
+<div class="comments">
+<% for comment in quote["comments"] || [] %>
+  <div class="comment">
+    <%= comment["body"] %>
+    <p class="author">
+      <% if comment["author_url"] && !comment["author_url"].empty? %>
+          <a href="<%= comment["author_url"] %>"><%= comment["author"] %></a> 
+          at <%= comment["created_at"] %>
+      <% else %>
+        <%= comment["author"] %> at <%= comment["created_at"] %>
+      <% end %>
+    </p>
+  </div>
+<% end %>
+
+<h4>Commenta anche tu!</h4>
+<form action="/quotes/comments/create" method="post" accept-charset="utf-8">
+  <%= input_text_field "Il tuo nome", "author" %>
+  <%= input_text_field "Il tuo blog", "author_url" %>
+  <%= input_hidden_field "quote_id", quote["quote_id"] %>
+  <textarea name="body" rows="8" cols="40"></textarea>
+  <p><input type="submit" value="Continue &rarr;"/></p>
+</form>
+</div>
+
+<p>
+  <a href="/quotes/new">Aggiungi nuova</a> | <a href="/quotes/list">Tutte le citazioni</a>
+</p>
